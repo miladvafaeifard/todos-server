@@ -1,0 +1,39 @@
+{
+  "name": "todos-server",
+  "version": "0.0.1",
+  "description": "todos server for vue/react/elm",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "babel-node index.js",
+    "start:watch": "nodemon index.js --exec babel-node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miladvafaeifard/todos-server.git"
+  },
+  "author": "Milad Vafaeifard <milad.vafaeifard@gmail.com>",
+  "license": "MIT license",
+  "bugs": {
+    "url": "https://github.com/miladvafaeifard/todos-server/issues"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  },
+  "engines": {
+    "node": "10.8.0"
+  },
+  "homepage": "https://github.com/miladvafaeifard/todos-server#readme",
+  "dependencies": {
+    "restify": "^7.2.1",
+    "restify-cors-middleware": "^1.1.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-es2015": "^6.24.1",
+    "nodemon": "^1.18.3"
+  }
+}
