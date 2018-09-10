@@ -2,11 +2,11 @@ import restify from 'restify';
 import mysql from 'mysql';
 
 import urlDecorator from './urlDecorator';
-import { getBy } from './util';
+import { getBy, getAll, createNewTask } from './util';
 
 export default function startServer() {
     const server = restify.createServer();
-    server.use(restify.plugins.bodyParser());
+    server.use(restify.plugins.queryParser({ mapParams: false }));
 
     // TODO: we will replace this to restify-cors-middleware
     server.use((req, res, next) => {
@@ -34,7 +34,21 @@ export default function startServer() {
     });
 
     server.get('/todos', (req, res, next) => {
-        connection.query('SELECT *, (UNIX_TIMESTAMP(timestamp)*1000) AS unix_timestamp FROM todos', function (err, results, fields) {
+        connection.query(getAll(), function (err, results, fields) {
+            if (err) throw err;
+            res.send(results);
+        });
+
+        return next();
+    });
+
+    server.post('/todos', (req, res, next) => {
+        const task = {
+            id: req.query.id,
+            text: req.query.text,
+        };
+
+        connection.query(createNewTask({task}), function (err, results, fields) {
             if (err) throw err;
             res.send(results);
         });
