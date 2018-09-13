@@ -43,16 +43,22 @@ export default function startServer() {
     });
 
     server.post('/todos', (req, res, next) => {
-        const task = {
-            id: req.query.id,
-            text: req.query.text,
-        };
+        if (req.query.id && req.query.text){
+            const task = {
+                id: req.query.id,
+                text: req.query.text,
+            };
 
-        connection.query(createNewTask({task}), function (err, results, fields) {
-            if (err) throw err;
-            res.send(results);
-        });
-
+            connection.query(createNewTask({task}), function (err, results) {
+                if (err) throw err;
+                res.send({
+                    messege: "",
+                    task
+                });
+            });
+        } else {
+            res.send({messege: "unknown queries"});
+        }
         return next();
     });
 
