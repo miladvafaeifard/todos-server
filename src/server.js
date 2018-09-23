@@ -1,8 +1,7 @@
 import restify from 'restify';
-import mysql from 'mysql';
-
-import urlDecorator from './urlDecorator';
-import { getBy, getAll, createNewTask } from './util';
+import { connection } from '../config/db.config';
+import { TodoRouter } from './controllers/Todo.router';
+import { router } from './util';
 
 export default function startServer() {
     const server = restify.createServer();
@@ -15,62 +14,10 @@ export default function startServer() {
         return next();
     });
 
-    // probably needed for later
-    // const decorateWithUrl = urlDecorator(server.router);
-
-    var connection = mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        database: 'mini_tododb'
-    });
-
-    connection.connect(err => {
-        if (err) {
-            console.error('error connecting: ' + err.stack);
-            return;
-        }
-
-        console.log('connected as id ' + connection.threadId);
-    });
-
-    server.get('/todos', (req, res, next) => {
-        connection.query(getAll(), function (err, results, fields) {
-            if (err) throw err;
-            res.send(results);
-        });
-
-        return next();
-    });
-
-    server.post('/todos', (req, res, next) => {
-        if (req.query.id && req.query.text){
-            const task = {
-                id: req.query.id,
-                text: req.query.text,
-            };
-
-            connection.query(createNewTask({task}), function (err, results) {
-                if (err) throw err;
-                res.send({
-                    messege: "",
-                    task
-                });
-            });
-        } else {
-            res.send({messege: "unknown queries"});
-        }
-        return next();
-    });
-
-    server.get({ name: 'id', path: '/:id' }, (req, res, next) => {
-        const getById = getBy('_id');
-        connection.query(getById(req.params.id), function (err, results, fields) {
-            if (err) throw err;
-            res.send(results);
-        });
-        return next();
-    });
-
+    // router that as many parameters as can be applied to server
+    // eg: router(TodoRoutes, userRouter, ...)
+    const routers = router(TodoRouter);
+    routers.applyRoutes(server);
 
     server.listen(process.env.PORT || 8080, () => {
         console.log(`Server started at ${process.env.PORT || 8080}`);

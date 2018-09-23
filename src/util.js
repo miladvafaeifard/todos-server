@@ -11,3 +11,26 @@ export const getAll = () => {
 export const createNewTask = ({task}) => {
     return `INSERT INTO ${TABLE_NAME} (_id, task) VALUES ("${task.id}","${task.text}")`;
 }
+
+export const router = (...routers) => {
+    const applyRoutes = (server) => {
+        routers.forEach(router => {
+            router.forEach(route => {
+                server[route.method || 'get']
+                (
+                    route.url || '/', 
+                    route.fn || NoFunction
+                );
+            });
+        })
+    }
+
+    return {
+        applyRoutes: applyRoutes
+    };
+}
+
+const NoFunction = ((req, res, next) => {
+    res.send('fn property required');
+    next();
+})
