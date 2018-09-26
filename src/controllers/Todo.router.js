@@ -6,6 +6,11 @@ export const TodoRouter = [{
         fn: TodoController.getTodos
     },
     {
+        method: 'put',
+        url: '/todos',
+        fn: TodoController.updateTodoById
+    },
+    {
         method: 'get',
         url: '/todos/:id',
         fn: TodoController.getTodoById

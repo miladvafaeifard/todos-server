@@ -8,6 +8,10 @@ export const getAll = () => {
     return `SELECT *, (UNIX_TIMESTAMP(timestamp)*1000) AS unix_timestamp FROM ${TABLE_NAME}`;
 }
 
+export const updateTodo = ({task}) => {
+    return `UPDATE ${TABLE_NAME} SET task="${task.text}", completed="${task.completed}" WHERE _id="${task.id}"`;
+}
+
 export const createNewTask = ({task}) => {
     return `INSERT INTO ${TABLE_NAME} (_id, task) VALUES ("${task.id}","${task.text}")`;
 }

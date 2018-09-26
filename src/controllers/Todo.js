@@ -1,5 +1,5 @@
 import { connection } from '../../config/db.config';
-import { getAll, createNewTask, getBy } from '../util';
+import { getAll, createNewTask, getBy, updateTodo } from '../util';
 
 const getTodos = (req, res, next) => {
     connection.query(getAll(), function (err, results, fields) {
@@ -7,6 +7,25 @@ const getTodos = (req, res, next) => {
         res.send(results);
     });
 
+    return next();
+}
+
+const updateTodoById = (req, res, next) => {
+    if (req.query.id && req.query.text, req.query.completed) {
+        const task = {
+            id: req.query.id,
+            text: req.query.text,
+            completed: req.query.completed,
+        };
+        connection.query(updateTodo({task}), function (err, results, fields) {
+            if (err) throw err;
+            res.send(results);
+        });
+    } else {
+        res.send({
+            messege: "unknown queries"
+        });
+    }
     return next();
 }
 
@@ -47,4 +66,5 @@ export const TodoController = {
     getTodos: getTodos,
     addTodo: addTodo,
     getTodoById: getTodoById,
+    updateTodoById: updateTodoById,
 }
