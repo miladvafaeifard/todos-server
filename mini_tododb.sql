@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.2
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 27, 2018 at 10:05 PM
--- Server version: 10.1.34-MariaDB
--- PHP Version: 7.2.8
+-- Generation Time: Sep 28, 2018 at 06:30 PM
+-- Server version: 10.1.26-MariaDB
+-- PHP Version: 7.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -33,7 +33,7 @@ CREATE TABLE `todos` (
   `_id` varchar(200) NOT NULL,
   `task` varchar(200) NOT NULL,
   `order` int(10) UNSIGNED NOT NULL,
-  `completed` enum('false','true') NOT NULL DEFAULT 'false',
+  `completed` tinyint(1) NOT NULL DEFAULT '0',
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -42,12 +42,13 @@ CREATE TABLE `todos` (
 --
 
 INSERT INTO `todos` (`id`, `_id`, `task`, `order`, `completed`, `timestamp`) VALUES
-(1, 'dogPzIz8', 'Make a ginger tea', 1, 'true', '2018-08-21 10:16:03'),
-(2, 'a4vhAoFG', 'Feed a dog, Tails', 2, 'false', '2018-08-21 10:16:03'),
-(5, '2WEKaVNO', 'Walk a hedgehog, Sonic', 3, 'false', '2018-08-21 10:16:03'),
-(6, 'nYrnfYEv', 'complete Task', 4, 'false', '2018-08-21 10:16:03'),
-(10, '2TEKa23XYO', 'Make a cup of coffee', 0, 'false', '2018-09-10 22:11:59'),
-(11, '2TEKa3g23XYO', 'Make some Tea', 5, 'false', '2018-09-23 20:47:55');
+(1, 'dogPzIz8', 'buy a car', 1, 1, '2018-08-21 10:16:03'),
+(2, 'a4vhAoFG', 'Feed a dog, Tails', 2, 1, '2018-08-21 10:16:03'),
+(5, '2WEKaVNO', 'Walk a hedgehog, Sonic', 3, 0, '2018-08-21 10:16:03'),
+(6, 'nYrnfYEv', 'complete Task', 4, 1, '2018-08-21 10:16:03'),
+(10, '2TEKa23XYO', 'Make some coffee', 0, 1, '2018-09-10 22:11:59'),
+(17, '1jm0q05k6', 'test test', 0, 1, '2018-09-13 15:20:06'),
+(18, '1jmkpfec7', 'test', 0, 0, '2018-09-27 14:59:21');
 
 --
 -- Indexes for dumped tables
@@ -67,7 +68,7 @@ ALTER TABLE `todos`
 -- AUTO_INCREMENT for table `todos`
 --
 ALTER TABLE `todos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
