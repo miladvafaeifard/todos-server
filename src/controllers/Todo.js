@@ -4,9 +4,11 @@ import { getAll, createNewTask, getBy, updateTodo } from '../util';
 const getTodos = (req, res, next) => {
     connection.query(getAll(), function (err, results, fields) {
         if (err) throw err;
-        res.send(results);
+        res.send({
+            messege: '',
+            todos: results
+        });
     });
-
     return next();
 }
 
@@ -19,11 +21,14 @@ const updateTodoById = (req, res, next) => {
         };
         connection.query(updateTodo({task}), function (err, results, fields) {
             if (err) throw err;
-            res.send(results);
+            res.send({
+                messege: '',
+                task,
+            });
         });
     } else {
         res.send({
-            messege: "unknown queries"
+            messege: 'unknown queries',
         });
     }
     return next();
@@ -41,13 +46,13 @@ const addTodo = (req, res, next) => {
         }), function (err, results) {
             if (err) throw err;
             res.send({
-                messege: "",
-                task
+                messege: '',
+                task,
             });
         });
     } else {
         res.send({
-            messege: "unknown queries"
+            messege: 'unknown queries',
         });
     }
     return next();

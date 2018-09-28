@@ -9,7 +9,7 @@ export const getAll = () => {
 }
 
 export const updateTodo = ({task}) => {
-    return `UPDATE ${TABLE_NAME} SET task="${task.text}", completed="${task.completed}" WHERE _id="${task.id}"`;
+    return `UPDATE ${TABLE_NAME} SET task="${task.text}", completed=${task.completed} WHERE _id="${task.id}"`;
 }
 
 export const createNewTask = ({task}) => {
