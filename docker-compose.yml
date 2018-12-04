@@ -1,0 +1,10 @@
+version: '2.1'
+
+services:
+  todos-server:
+    image: todos-server
+    build: .
+    environment:
+      NODE_ENV: production
+    ports:
+      - 5000:5000

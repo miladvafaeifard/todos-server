@@ -33,6 +33,44 @@ npm install
 npm run serve
 ```
 
+## docker node and mysql containers
+
+### build node
+
+```shell
+docker build -t myserver/todos-server .
+```
+
+### run node
+
+```shell
+docker run  -d \
+-p 5000:5000 \
+-e PORT=5000 \
+-e HOST='172.17.0.2' \
+-e USER='root' \
+-e PASS='root' \
+--link mysql_db:db \
+--name=todos-backend \
+myserver/todos-server
+```
+
+Note: for this host '172.17.0.2' received from `docker inspect mysql_db | grep IPAddress`
+
+### run mysql
+
+```shell
+docker pull mysql:5.7
+```
+
+```shell
+docker run  -d \
+--name= mysql_db \
+-p 3306:3306 \
+-e MYSQL_ROOT_PASSWORD=root
+mysql
+```
+
 ## Built With
 
 - [Restify](http://restify.com/) - The Restify framework used

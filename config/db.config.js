@@ -1,9 +1,10 @@
 import mysql from 'mysql';
 
 const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    database: 'mini_tododb'
+    host: process.env.HOST || 'localhost',
+    user: process.env.USER || 'root',
+    password: process.env.PASS || '',
+    database: process.env.DATABASE || 'mini_tododb'
 });
 
 connection.connect(err => {
