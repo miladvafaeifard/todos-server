@@ -16,6 +16,10 @@ export const createNewTask = ({task}) => {
     return `INSERT INTO ${TABLE_NAME} (_id, task) VALUES ("${task.id}","${task.text}")`;
 }
 
+export const deleteTask = ({task}) => {
+    return `DELETE FROM ${TABLE_NAME} WHERE _id='${task.id}'`;
+}
+
 export const router = (...routers) => {
     const applyRoutes = (server) => {
         routers.forEach(router => {

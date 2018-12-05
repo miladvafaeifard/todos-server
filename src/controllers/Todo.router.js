@@ -20,4 +20,9 @@ export const TodoRouter = [{
         url: '/todos',
         fn: TodoController.addTodo
     },
+    {
+        method: 'del',
+        url: '/todos/:id',
+        fn: TodoController.deleteTodoById
+    },
 ];

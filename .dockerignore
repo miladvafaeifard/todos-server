@@ -1,13 +1,32 @@
-node_modules
-npm-debug.log
-Dockerfile*
-docker-compose*
-.dockerignore
-.git
-.gitignore
-.env
-*/bin
-*/obj
+# Common
 README.md
+CHANGELOG.md
+docker-compose.yml
+docker-compose.debug.yml
+Dockerfile
+
+# Node
+## Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+## Dependency directories
+node_modules/
+
+# vscode
+.vscode/
+
+# JetBrains
+.idea
+
+# git
+.git
+.gitattributes
+
+# others
+Todos.postman_collection.json
+mini_tododb.sql
 LICENSE
-.vscode

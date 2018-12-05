@@ -1,5 +1,5 @@
 import { connection } from '../../config/db.config';
-import { getAll, createNewTask, getBy, updateTodo } from '../util';
+import { getAll, createNewTask, getBy, updateTodo, deleteTask } from '../util';
 
 const getTodos = (req, res, next) => {
     connection.query(getAll(), function (err, results, fields) {
@@ -67,9 +67,39 @@ const getTodoById = (req, res, next) => {
     return next();
 }
 
+
+const deleteTodoById = (req, res, next) => {
+	if (req.params.id) {
+		const task = {
+			id: req.params.id
+		};
+		connection.query(deleteTask({task}), function (err, results, fields) {
+            if (err) throw err;
+            if(results.affectedRows === 1){
+                res.send({
+                    messege: 'task deleted',
+                    task,
+                });
+            } else {
+                console.log('fields', fields);
+                res.send({
+                    messege: 'not found to be deleted',
+                    task,
+                });
+            }
+		});
+	} else {
+		res.send({
+			messege: 'unknown queries',
+		});
+    }
+	return next();
+}
+
 export const TodoController = {
     getTodos: getTodos,
     addTodo: addTodo,
     getTodoById: getTodoById,
     updateTodoById: updateTodoById,
+    deleteTodoById: deleteTodoById,
 }
