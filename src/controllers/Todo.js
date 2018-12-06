@@ -5,7 +5,7 @@ const getTodos = (req, res, next) => {
     connection.query(getAll(), function (err, results, fields) {
         if (err) throw err;
         res.send({
-            messege: '',
+            message: '',
             todos: results
         });
     });
@@ -22,13 +22,13 @@ const updateTodoById = (req, res, next) => {
         connection.query(updateTodo({task}), function (err, results, fields) {
             if (err) throw err;
             res.send({
-                messege: '',
+                message: '',
                 task,
             });
         });
     } else {
         res.send({
-            messege: 'unknown queries',
+            message: 'unknown queries',
         });
     }
     return next();
@@ -46,13 +46,13 @@ const addTodo = (req, res, next) => {
         }), function (err, results) {
             if (err) throw err;
             res.send({
-                messege: '',
+                message: '',
                 task,
             });
         });
     } else {
         res.send({
-            messege: 'unknown queries',
+            message: 'unknown queries',
         });
     }
     return next();
@@ -77,20 +77,20 @@ const deleteTodoById = (req, res, next) => {
             if (err) throw err;
             if(results.affectedRows === 1){
                 res.send({
-                    messege: 'task deleted',
+                    message: 'task deleted',
                     task,
                 });
             } else {
                 console.log('fields', fields);
                 res.send({
-                    messege: 'not found to be deleted',
+                    message: 'not found to be deleted',
                     task,
                 });
             }
 		});
 	} else {
 		res.send({
-			messege: 'unknown queries',
+			message: 'unknown queries',
 		});
     }
 	return next();
