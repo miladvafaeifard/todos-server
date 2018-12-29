@@ -41,22 +41,6 @@ npm run serve
 docker build -t myserver/todos-server .
 ```
 
-### run node
-
-```shell
-docker run  -d \
--p 5000:5000 \
--e PORT=5000 \
--e HOST='172.17.0.2' \
--e USER='root' \
--e PASS='root' \
---link mysql_db:db \
---name=todos-backend \
-myserver/todos-server
-```
-
-Note: for this host '172.17.0.2' received from `docker inspect mysql_db | grep IPAddress`
-
 ### run mysql
 
 ```shell
@@ -70,6 +54,39 @@ docker run  -d \
 -e MYSQL_ROOT_PASSWORD=root
 mysql
 ```
+
+### run node
+
+```shell
+docker run  -d \
+-p 5000:5000 \
+-e PORT=5000 \
+-e HOST='172.17.0.2' \
+-e USER='root' \
+-e PASS='root' \
+--link mysql_db:db \
+--name=todos-backend \
+myserver/todos-server
+```
+Note: for this host '172.17.0.2' received from `docker inspect mysql_db | grep IPAddress`
+
+## docker compose
+
+```shell
+docker-compose build && docker-compose up -d
+```
+
+The semi-final step is to set mysql port to MYSQL_HOST in `node.dockerfile` file by looking up in the command line:
+
+```shell
+docker inspect <todos-server mysql ID> | grep IPAddress
+```
+and the final step is to rerun only the way:
+
+```shell
+docker build -f node.dockerfile -t todos-server_node .
+```
+
 
 ## Built With
 
