@@ -1,10 +1,26 @@
-version: '2.1'
+version: '3'
 
 services:
-  todos-server:
-    image: todos-server
-    build: .
-    environment:
-      NODE_ENV: production
+  node:
+    build:
+      context: .
+      dockerfile: node.dockerfile
     ports:
-      - 5000:5000
+      - 7000:7000
+    networks:
+      - todos-network
+    links: 
+      - mysql:db
+  
+  mysql:
+    image: mysql:5.7
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    networks:
+      - todos-network
+
+networks:
+  todos-network:
+    driver: bridge
