@@ -28,8 +28,8 @@ export default function startServer() {
     const routers = router(TodoRouter);
     routers.applyRoutes(server);
 
-    server.listen(process.env.PORT || 8080, () => {
-        console.log(`Server started at ${process.env.PORT || 8080}`);
+    server.listen(process.env.NODE_PORT || 8080, () => {
+        console.log(`Server started at ${process.env.NODE_PORT || 8080}`);
     });
 }
 
