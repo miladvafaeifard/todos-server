@@ -77,7 +77,7 @@ const deleteTodoById = (req, res, next) => {
             if (err) throw err;
             if(results.affectedRows === 1){
                 res.send({
-                    message: 'task deleted',
+                    message: '',
                     task,
                 });
             } else {
